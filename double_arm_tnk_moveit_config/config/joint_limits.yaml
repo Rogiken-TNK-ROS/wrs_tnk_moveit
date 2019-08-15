@@ -1,0 +1,124 @@
+# joint_limits.yaml allows the dynamics properties specified in the URDF to be overwritten or augmented as needed
+# Specific joint properties can be changed with the keys [max_position, min_position, max_velocity, max_acceleration]
+# Joint limits can be turned off with [has_velocity_limits, has_acceleration_limits]
+joint_limits:
+  ARM:
+    has_velocity_limits: true
+    max_velocity: 1146
+    has_acceleration_limits: false
+    max_acceleration: 0
+  BLOCK:
+    has_velocity_limits: true
+    max_velocity: 1146
+    has_acceleration_limits: false
+    max_acceleration: 0
+  BOOM:
+    has_velocity_limits: true
+    max_velocity: 1146
+    has_acceleration_limits: false
+    max_acceleration: 0
+  HANDBASE:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  HANDLNK_I:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  HANDLNK_O:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  HANDSLNK_I:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  HANDSLNK_O:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  HANDTIP_L:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  HANDTIP_U:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  MANIARM:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  MANIBOOM:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  MANIELBOW:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  MANIFNG_L:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  MANIFNG_U:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  MFRAME:
+    has_velocity_limits: true
+    max_velocity: 180
+    has_acceleration_limits: false
+    max_acceleration: 0
+  MNP_SWING:
+    has_velocity_limits: true
+    max_velocity: 1146
+    has_acceleration_limits: false
+    max_acceleration: 0
+  PUSHROD:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  TOHKU_PITCH:
+    has_velocity_limits: true
+    max_velocity: 5730
+    has_acceleration_limits: false
+    max_acceleration: 0
+  TOHKU_ROLL:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  TOHKU_TIP_01:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  TOHKU_TIP_02:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  UFRAME:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0
+  YAWJOINT:
+    has_velocity_limits: true
+    max_velocity: 573
+    has_acceleration_limits: false
+    max_acceleration: 0

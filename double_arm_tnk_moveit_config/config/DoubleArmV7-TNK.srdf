@@ -1,0 +1,605 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="DoubleArmV7-TNK">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="tohoku_arm">
+        <link name="MFRAME" />
+        <link name="BLOCK" />
+        <link name="BOOM" />
+        <link name="ARM" />
+        <link name="TOHKU_PITCH" />
+        <link name="TOHKU_ROLL" />
+        <joint name="MFRAME" />
+        <joint name="BLOCK" />
+        <joint name="BOOM" />
+        <joint name="ARM" />
+        <joint name="TOHKU_PITCH" />
+        <joint name="TOHKU_ROLL" />
+    </group>
+    <group name="mani_arm">
+        <link name="UFRAME" />
+        <link name="MNP_SWING" />
+        <link name="MANIBOOM" />
+        <link name="MANIARM" />
+        <link name="MANIELBOW" />
+        <link name="YAWJOINT" />
+        <link name="HANDBASE" />
+        <joint name="UFRAME" />
+        <joint name="MNP_SWING" />
+        <joint name="MANIBOOM" />
+        <joint name="MANIARM" />
+        <joint name="MANIELBOW" />
+        <joint name="YAWJOINT" />
+        <joint name="HANDBASE" />
+    </group>
+    <group name="both_arms">
+      <group name="tohoku_arm" />
+      <group name="mani_arm" />
+      <!-- Tohoku ARM Link -->
+      <link name="MFRAME" />
+      <link name="BLOCK" />
+      <link name="BOOM" />
+      <link name="ARM" />
+      <link name="TOHKU_PITCH" />
+      <link name="TOHKU_ROLL" />
+      <!-- Mani ARM Link -->
+      <link name="UFRAME" />
+      <link name="MNP_SWING" />
+      <link name="MANIBOOM" />
+      <link name="MANIARM" />
+      <link name="MANIELBOW" />
+      <link name="YAWJOINT" />
+      <link name="HANDBASE" />
+      <!-- Tohoku Gripper -->
+      <link name="TOHKU_TIP_01" />
+      <link name="TOHKU_TIP_02" />
+      <!-- Mani Gripper -->
+      <link name="HANDLNK_I" />
+      <link name="HANDLNK_O" />
+      <link name="MANIFNG_L" />
+      <link name="HANDTIP_L" />
+      <link name="MANIFNG_U" />
+      <link name="HANDTIP_U" />
+      <link name="PUSHROD" />
+      <link name="HANDSLNK_I" />
+      <link name="HANDSLNK_O" />
+    </group>
+    <group name="tohoku_gripper">
+        <link name="TOHKU_TIP_01" />
+        <link name="TOHKU_TIP_02" />
+        <joint name="TOHKU_TIP_01" />
+        <joint name="TOHKU_TIP_02" />
+    </group>
+    <group name="mani_gripper">
+        <link name="HANDLNK_I" />
+        <link name="HANDLNK_O" />
+        <link name="MANIFNG_L" />
+        <link name="HANDTIP_L" />
+        <link name="MANIFNG_U" />
+        <link name="HANDTIP_U" />
+        <link name="PUSHROD" />
+        <link name="HANDSLNK_I" />
+        <link name="HANDSLNK_O" />
+        <joint name="HANDLNK_I" />
+        <joint name="HANDLNK_O" />
+        <joint name="MANIFNG_L" />
+        <joint name="HANDTIP_L" />
+        <joint name="MANIFNG_U" />
+        <joint name="HANDTIP_U" />
+        <joint name="PUSHROD" />
+        <joint name="HANDSLNK_I" />
+        <joint name="HANDSLNK_O" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="Home" group="tohoku_arm">
+        <joint name="ARM" value="2.6546" />
+        <joint name="BLOCK" value="-0.5884" />
+        <joint name="BOOM" value="-1.3107" />
+        <joint name="MFRAME" value="0.5966" />
+        <joint name="TOHKU_PITCH" value="0.2706" />
+        <joint name="TOHKU_ROLL" value="0" />
+    </group_state>
+    <group_state name="Home" group="mani_arm">
+        <joint name="HANDBASE" value="0" />
+        <joint name="MANIARM" value="-0.1803" />
+        <joint name="MANIBOOM" value="0.499" />
+        <joint name="MANIELBOW" value="-0.3298" />
+        <joint name="MNP_SWING" value="0.5149" />
+        <joint name="UFRAME" value="2.5854" />
+        <joint name="YAWJOINT" value="0" />
+    </group_state>
+    <group_state name="Home" group="both_arms">
+        <joint name="ARM" value="2.6546" />
+        <joint name="BLOCK" value="-0.5884" />
+        <joint name="BOOM" value="-1.3107" />
+        <joint name="HANDBASE" value="0" />
+        <joint name="MANIARM" value="-0.1803" />
+        <joint name="MANIBOOM" value="0.499" />
+        <joint name="MANIELBOW" value="-0.3298" />
+        <joint name="MFRAME" value="0.5966" />
+        <joint name="MNP_SWING" value="0.5149" />
+        <joint name="TOHKU_PITCH" value="0.2706" />
+        <joint name="TOHKU_ROLL" value="0" />
+        <joint name="UFRAME" value="2.5854" />
+        <joint name="YAWJOINT" value="0" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="tohoku_eef" parent_link="TOHKU_ROLL" group="tohoku_gripper" />
+    <end_effector name="mani_eef" parent_link="HANDBASE" group="mani_gripper" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="ARM" link2="BOOM" reason="Adjacent" />
+    <disable_collisions link1="ARM" link2="HANDLNK_I" reason="User" />
+    <disable_collisions link1="ARM" link2="HANDLNK_O" reason="Never" />
+    <disable_collisions link1="ARM" link2="HANDSLNK_I" reason="User" />
+    <disable_collisions link1="ARM" link2="HANDSLNK_O" reason="Never" />
+    <disable_collisions link1="ARM" link2="MFRAME" reason="Never" />
+    <disable_collisions link1="ARM" link2="PUSHROD" reason="Never" />
+    <disable_collisions link1="ARM" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="ARM" link2="TOHKU_PITCH" reason="Adjacent" />
+    <disable_collisions link1="ARM" link2="TOHKU_ROLL" reason="Never" />
+    <disable_collisions link1="ARM" link2="TOHKU_TIP_01" reason="Never" />
+    <disable_collisions link1="ARM" link2="TOHKU_TIP_02" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="ARM" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="BOOM" reason="Adjacent" />
+    <disable_collisions link1="BLOCK" link2="HANDLNK_I" reason="User" />
+    <disable_collisions link1="BLOCK" link2="HANDLNK_O" reason="User" />
+    <disable_collisions link1="BLOCK" link2="HANDSLNK_I" reason="User" />
+    <disable_collisions link1="BLOCK" link2="HANDSLNK_O" reason="User" />
+    <disable_collisions link1="BLOCK" link2="MFRAME" reason="Adjacent" />
+    <disable_collisions link1="BLOCK" link2="PUSHROD" reason="User" />
+    <disable_collisions link1="BLOCK" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="BLOCK" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="BOOM" link2="HANDLNK_I" reason="User" />
+    <disable_collisions link1="BOOM" link2="HANDLNK_O" reason="User" />
+    <disable_collisions link1="BOOM" link2="HANDSLNK_I" reason="User" />
+    <disable_collisions link1="BOOM" link2="HANDSLNK_O" reason="User" />
+    <disable_collisions link1="BOOM" link2="MFRAME" reason="Never" />
+    <disable_collisions link1="BOOM" link2="PUSHROD" reason="User" />
+    <disable_collisions link1="BOOM" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="BOOM" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="HANDBASE" link2="HANDLNK_I" reason="Adjacent" />
+    <disable_collisions link1="HANDBASE" link2="HANDLNK_O" reason="Adjacent" />
+    <disable_collisions link1="HANDBASE" link2="HANDSLNK_I" reason="Default" />
+    <disable_collisions link1="HANDBASE" link2="HANDSLNK_O" reason="Default" />
+    <disable_collisions link1="HANDBASE" link2="HANDTIP_L" reason="Default" />
+    <disable_collisions link1="HANDBASE" link2="HANDTIP_U" reason="Default" />
+    <disable_collisions link1="HANDBASE" link2="MANIARM" reason="Never" />
+    <disable_collisions link1="HANDBASE" link2="MANIBOOM" reason="Never" />
+    <disable_collisions link1="HANDBASE" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="HANDBASE" link2="MANIFNG_L" reason="Adjacent" />
+    <disable_collisions link1="HANDBASE" link2="MANIFNG_U" reason="Adjacent" />
+    <disable_collisions link1="HANDBASE" link2="MFRAME" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="HANDBASE" link2="PUSHROD" reason="Adjacent" />
+    <disable_collisions link1="HANDBASE" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="HANDBASE" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_L2" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_L3" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="HANDBASE" link2="YAWJOINT" reason="Adjacent" />
+    <disable_collisions link1="HANDLNK_I" link2="HANDLNK_O" reason="Default" />
+    <disable_collisions link1="HANDLNK_I" link2="HANDSLNK_I" reason="Default" />
+    <disable_collisions link1="HANDLNK_I" link2="HANDSLNK_O" reason="Default" />
+    <disable_collisions link1="HANDLNK_I" link2="HANDTIP_L" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="HANDTIP_U" reason="Default" />
+    <disable_collisions link1="HANDLNK_I" link2="MANIARM" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="MANIBOOM" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="MANIFNG_L" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="MANIFNG_U" reason="Default" />
+    <disable_collisions link1="HANDLNK_I" link2="MFRAME" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="PUSHROD" reason="Default" />
+    <disable_collisions link1="HANDLNK_I" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="TOHKU_PITCH" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="TOHKU_ROLL" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="TOHKU_TIP_01" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="TOHKU_TIP_02" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_L2" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_L3" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WIRE_GUARD_L" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="WIRE_GUARD_R" reason="User" />
+    <disable_collisions link1="HANDLNK_I" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="HANDSLNK_I" reason="Default" />
+    <disable_collisions link1="HANDLNK_O" link2="HANDSLNK_O" reason="Default" />
+    <disable_collisions link1="HANDLNK_O" link2="HANDTIP_L" reason="Default" />
+    <disable_collisions link1="HANDLNK_O" link2="HANDTIP_U" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="MANIARM" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="MANIBOOM" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="MANIFNG_L" reason="Default" />
+    <disable_collisions link1="HANDLNK_O" link2="MANIFNG_U" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="MFRAME" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="PUSHROD" reason="Default" />
+    <disable_collisions link1="HANDLNK_O" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="TOHKU_PITCH" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="TOHKU_ROLL" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="TOHKU_TIP_01" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="TOHKU_TIP_02" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_L2" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="HANDLNK_O" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="WIRE_GUARD_L" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="WIRE_GUARD_R" reason="User" />
+    <disable_collisions link1="HANDLNK_O" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="HANDSLNK_O" reason="Default" />
+    <disable_collisions link1="HANDSLNK_I" link2="HANDTIP_L" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="HANDTIP_U" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="MANIARM" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="MANIBOOM" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="MANIFNG_L" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="MANIFNG_U" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="MFRAME" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="PUSHROD" reason="Adjacent" />
+    <disable_collisions link1="HANDSLNK_I" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="TOHKU_PITCH" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="TOHKU_ROLL" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="TOHKU_TIP_01" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="TOHKU_TIP_02" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="HANDSLNK_I" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="WIRE_GUARD_L" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="WIRE_GUARD_R" reason="User" />
+    <disable_collisions link1="HANDSLNK_I" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="HANDTIP_L" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="HANDTIP_U" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="MANIARM" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="MANIBOOM" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="MANIFNG_L" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="MANIFNG_U" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="MFRAME" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="PUSHROD" reason="Adjacent" />
+    <disable_collisions link1="HANDSLNK_O" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="TOHKU_PITCH" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="TOHKU_ROLL" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="TOHKU_TIP_01" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="TOHKU_TIP_02" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="HANDSLNK_O" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="WIRE_GUARD_L" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="WIRE_GUARD_R" reason="User" />
+    <disable_collisions link1="HANDSLNK_O" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="HANDTIP_L" link2="HANDTIP_U" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="MANIARM" reason="Never" />
+    <disable_collisions link1="HANDTIP_L" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="HANDTIP_L" link2="MANIFNG_L" reason="Adjacent" />
+    <disable_collisions link1="HANDTIP_L" link2="MANIFNG_U" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="MFRAME" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="PUSHROD" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="HANDTIP_L" link2="UFRAME" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="HANDTIP_L" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="HANDTIP_L" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="MANIARM" reason="Never" />
+    <disable_collisions link1="HANDTIP_U" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="HANDTIP_U" link2="MANIFNG_L" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="MANIFNG_U" reason="Adjacent" />
+    <disable_collisions link1="HANDTIP_U" link2="MFRAME" reason="Never" />
+    <disable_collisions link1="HANDTIP_U" link2="PUSHROD" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="HANDTIP_U" link2="UFRAME" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="HANDTIP_U" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="HANDTIP_U" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="MANIARM" link2="MANIBOOM" reason="Adjacent" />
+    <disable_collisions link1="MANIARM" link2="MANIELBOW" reason="Adjacent" />
+    <disable_collisions link1="MANIARM" link2="MANIFNG_L" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="MANIFNG_U" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="MFRAME" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="PUSHROD" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="MANIARM" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="MANIELBOW" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="MFRAME" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="MNP_SWING" reason="Adjacent" />
+    <disable_collisions link1="MANIBOOM" link2="PUSHROD" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="MANIBOOM" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="MANIFNG_L" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="MANIFNG_U" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="MFRAME" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="PUSHROD" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_L3" reason="User" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="MANIELBOW" link2="YAWJOINT" reason="Adjacent" />
+    <disable_collisions link1="MANIFNG_L" link2="MANIFNG_U" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="MFRAME" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="PUSHROD" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="MANIFNG_L" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="MANIFNG_L" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="MANIFNG_L" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="MANIFNG_U" link2="MFRAME" reason="User" />
+    <disable_collisions link1="MANIFNG_U" link2="PUSHROD" reason="User" />
+    <disable_collisions link1="MANIFNG_U" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="MANIFNG_U" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="MANIFNG_U" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="MANIFNG_U" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="MFRAME" link2="MNP_SWING" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="PUSHROD" reason="User" />
+    <disable_collisions link1="MFRAME" link2="TFRAME" reason="Adjacent" />
+    <disable_collisions link1="MFRAME" link2="UFRAME" reason="Default" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="MFRAME" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="MNP_SWING" link2="PUSHROD" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="UFRAME" reason="Adjacent" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="MNP_SWING" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="PUSHROD" link2="TFRAME" reason="Never" />
+    <disable_collisions link1="PUSHROD" link2="TOHKU_PITCH" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="TOHKU_ROLL" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="TOHKU_TIP_01" reason="Never" />
+    <disable_collisions link1="PUSHROD" link2="TOHKU_TIP_02" reason="Never" />
+    <disable_collisions link1="PUSHROD" link2="UFRAME" reason="Never" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_L2" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WIRE_GUARD_L" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="WIRE_GUARD_R" reason="User" />
+    <disable_collisions link1="PUSHROD" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="TFRAME" link2="TOHKU_PITCH" reason="Never" />
+    <disable_collisions link1="TFRAME" link2="TOHKU_ROLL" reason="Never" />
+    <disable_collisions link1="TFRAME" link2="UFRAME" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_L0" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_L1" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_L2" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_L3" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_R0" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_R1" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_R2" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WHEEL_R3" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WIRE_GUARD_L" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="WIRE_GUARD_R" reason="Adjacent" />
+    <disable_collisions link1="TFRAME" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="TOHKU_ROLL" reason="Adjacent" />
+    <disable_collisions link1="TOHKU_PITCH" link2="TOHKU_TIP_01" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="TOHKU_TIP_02" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="TOHKU_PITCH" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="TOHKU_ROLL" link2="TOHKU_TIP_01" reason="Adjacent" />
+    <disable_collisions link1="TOHKU_ROLL" link2="TOHKU_TIP_02" reason="Adjacent" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_L2" reason="User" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="TOHKU_ROLL" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="TOHKU_TIP_02" reason="Never" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_L2" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_L3" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_01" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_L0" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_L1" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_L2" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_L3" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_R0" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_R1" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_R2" reason="User" />
+    <disable_collisions link1="TOHKU_TIP_02" link2="WHEEL_R3" reason="User" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_L0" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="UFRAME" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WHEEL_L1" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="WIRE_GUARD_L" reason="Default" />
+    <disable_collisions link1="WHEEL_L0" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="WHEEL_L0" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="WHEEL_L1" link2="WHEEL_L2" reason="Never" />
+    <disable_collisions link1="WHEEL_L1" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="WHEEL_L1" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="WHEEL_L1" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="WHEEL_L1" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="WHEEL_L1" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="WHEEL_L1" link2="WIRE_GUARD_L" reason="Default" />
+    <disable_collisions link1="WHEEL_L1" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="WHEEL_L1" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="WHEEL_L2" link2="WHEEL_L3" reason="Never" />
+    <disable_collisions link1="WHEEL_L2" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="WHEEL_L2" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="WHEEL_L2" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="WHEEL_L2" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="WHEEL_L2" link2="WIRE_GUARD_L" reason="Default" />
+    <disable_collisions link1="WHEEL_L2" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="WHEEL_L2" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="WHEEL_L3" link2="WHEEL_R0" reason="Never" />
+    <disable_collisions link1="WHEEL_L3" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="WHEEL_L3" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="WHEEL_L3" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="WHEEL_L3" link2="WIRE_GUARD_L" reason="Default" />
+    <disable_collisions link1="WHEEL_L3" link2="WIRE_GUARD_R" reason="Never" />
+    <disable_collisions link1="WHEEL_L3" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="WHEEL_R0" link2="WHEEL_R1" reason="Never" />
+    <disable_collisions link1="WHEEL_R0" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="WHEEL_R0" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="WHEEL_R0" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="WHEEL_R0" link2="WIRE_GUARD_R" reason="Default" />
+    <disable_collisions link1="WHEEL_R0" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="WHEEL_R1" link2="WHEEL_R2" reason="Never" />
+    <disable_collisions link1="WHEEL_R1" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="WHEEL_R1" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="WHEEL_R1" link2="WIRE_GUARD_R" reason="Default" />
+    <disable_collisions link1="WHEEL_R1" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="WHEEL_R2" link2="WHEEL_R3" reason="Never" />
+    <disable_collisions link1="WHEEL_R2" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="WHEEL_R2" link2="WIRE_GUARD_R" reason="Default" />
+    <disable_collisions link1="WHEEL_R2" link2="YAWJOINT" reason="Never" />
+    <disable_collisions link1="WHEEL_R3" link2="WIRE_GUARD_L" reason="Never" />
+    <disable_collisions link1="WHEEL_R3" link2="WIRE_GUARD_R" reason="Default" />
+    <disable_collisions link1="WHEEL_R3" link2="YAWJOINT" reason="User" />
+    <disable_collisions link1="WIRE_GUARD_L" link2="WIRE_GUARD_R" reason="Never" />
+</robot>

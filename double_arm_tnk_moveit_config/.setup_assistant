@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: double_arm_tnk_description
+    relative_path: urdf/DoubleArmV7A-TNK.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/DoubleArmV7-TNK.srdf
+  CONFIG:
+    author_name: Ryodo Tanaka
+    author_email: groadpg@gmail.com
+    generated_timestamp: 1565880506

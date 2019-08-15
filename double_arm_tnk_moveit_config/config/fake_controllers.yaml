@@ -1,0 +1,48 @@
+controller_list:
+  - name: fake_tohoku_arm_controller
+    joints:
+      - MFRAME
+      - BLOCK
+      - BOOM
+      - ARM
+      - TOHKU_PITCH
+      - TOHKU_ROLL
+  - name: fake_mani_arm_controller
+    joints:
+      - UFRAME
+      - MNP_SWING
+      - MANIBOOM
+      - MANIARM
+      - MANIELBOW
+      - YAWJOINT
+      - HANDBASE
+  - name: fake_both_arms_controller
+    joints:
+      - MFRAME
+      - BLOCK
+      - BOOM
+      - ARM
+      - TOHKU_PITCH
+      - TOHKU_ROLL
+      - UFRAME
+      - MNP_SWING
+      - MANIBOOM
+      - MANIARM
+      - MANIELBOW
+      - YAWJOINT
+      - HANDBASE
+  - name: fake_tohoku_gripper_controller
+    joints:
+      - TOHKU_TIP_01
+      - TOHKU_TIP_02
+  - name: fake_mani_gripper_controller
+    joints:
+      - HANDLNK_I
+      - HANDLNK_O
+      - MANIFNG_L
+      - HANDTIP_L
+      - MANIFNG_U
+      - HANDTIP_U
+      - PUSHROD
+      - HANDSLNK_I
+      - HANDSLNK_O

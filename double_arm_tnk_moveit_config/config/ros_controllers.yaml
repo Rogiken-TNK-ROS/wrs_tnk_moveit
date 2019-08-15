@@ -1,0 +1,91 @@
+# MoveIt-specific simulation settings
+moveit_sim_hw_interface:
+  joint_model_group: controllers_initial_group_
+  joint_model_group_pose: controllers_initial_pose_
+# Settings for ros_control control loop
+generic_hw_control_loop:
+  loop_hz: 300
+  cycle_time_error_threshold: 0.01
+# Settings for ros_control hardware interface
+hardware_interface:
+  joints:
+    - MFRAME
+    - BLOCK
+    - BOOM
+    - ARM
+    - TOHKU_PITCH
+    - TOHKU_ROLL
+    - TOHKU_TIP_01
+    - TOHKU_TIP_02
+    - UFRAME
+    - MNP_SWING
+    - MANIBOOM
+    - MANIARM
+    - MANIELBOW
+    - YAWJOINT
+    - HANDBASE
+    - HANDLNK_I
+    - HANDLNK_O
+    - MANIFNG_L
+    - HANDTIP_L
+    - MANIFNG_U
+    - HANDTIP_U
+    - PUSHROD
+    - HANDSLNK_I
+    - HANDSLNK_O
+    - WHEEL_L0
+    - WHEEL_L1
+    - WHEEL_L2
+    - WHEEL_L3
+    - WHEEL_R0
+    - WHEEL_R1
+    - WHEEL_R2
+    - WHEEL_R3
+  sim_control_mode: 1  # 0: position, 1: velocity
+# Publish all joint states
+# Creates the /joint_states topic necessary in ROS
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+controller_list:
+  - name: tohoku_arm_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - MFRAME
+      - BLOCK
+      - BOOM
+      - ARM
+      - TOHKU_PITCH
+      - TOHKU_ROLL
+  - name: mani_arm_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - UFRAME
+      - MNP_SWING
+      - MANIBOOM
+      - MANIARM
+      - MANIELBOW
+      - YAWJOINT
+      - HANDBASE
+  - name: both_arms_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - MFRAME
+      - BLOCK
+      - BOOM
+      - ARM
+      - TOHKU_PITCH
+      - TOHKU_ROLL
+      - UFRAME
+      - MNP_SWING
+      - MANIBOOM
+      - MANIARM
+      - MANIELBOW
+      - YAWJOINT
+      - HANDBASE
