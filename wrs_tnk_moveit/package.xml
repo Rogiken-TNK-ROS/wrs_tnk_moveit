@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>wrs_tnk_moveit</name>
+  <version>0.1.0</version>
+  <description>The wrs_tnk_moveit package</description>
+
+  <maintainer email="groadpg@gmail.com">Ryodo Tanaka</maintainer>
+
+  <license>MIT</license>
+
+  <url type="repository">http://github.com/WRS-TNK/wrs_tnk_moveit</url>
+
+  <author email="groadpg@gmail.com">Ryodo Tanaka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+
+</package>
